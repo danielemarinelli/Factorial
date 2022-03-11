@@ -15,3 +15,5 @@ The test can be triggered with the following command:
 mvn clean test -Denv=[ENVIRONMENT] -Dbrowser[BROWSER NAME]
 
 For this test the allowed browsers are: chrome, firefox, edge and IE
+
+Factorial bugs.xlsx lists all the bugs in the page
