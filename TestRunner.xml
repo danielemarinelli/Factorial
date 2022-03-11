@@ -1,9 +1,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite1" verbose="1" parallel="tests" thread-count="2">
-    <test name="ViteApp_Framework">
+<suite name="hosteworld_challenge" verbose="1">
+    <test name="hosteworld">
         <classes>
-            <class name="Tests.ViteAppTest"/>
+            <class name="Tests.HosteworldTest"/>
         </classes>
     </test>
 </suite>

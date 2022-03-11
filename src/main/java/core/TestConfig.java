@@ -30,4 +30,7 @@ public class TestConfig {
             properties.setProperty(property,value);
         }
     }
+
+    public static String ENV = System.getenv("env");
+
 }

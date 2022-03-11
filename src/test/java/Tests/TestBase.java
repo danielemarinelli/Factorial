@@ -2,29 +2,30 @@ package Tests;
 
 
 import com.relevantcodes.extentreports.LogStatus;
-import core.DriverFactory;
-import core.TestConfig;
-import core.TestReporter;
+import core.*;
+import core.API.APIMethods;
+import core.API.Environments;
+import core.API.RestSession;
+import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class TestBase {
 
-    private WebDriver driver;
+    public WebDriver driver;
     private TestReporter reporter;
+    private RestSession session;
 
     @BeforeSuite
     public void initSuite() throws Exception {
@@ -40,7 +41,6 @@ public class TestBase {
     }
 
 
-
     public WebDriver driver() {
         return driver;
     }
@@ -50,10 +50,18 @@ public class TestBase {
         action.moveToElement(ele).click(ele).build().perform();
     }
 
+    public int fatt(String x) {
+        int i;
+        int f=1;
+        for(i=1; i<=Integer.parseInt(x); i=i+1) { f=f*i; }
+        return f;
+    }
+
+
 
     @BeforeMethod
     public void launchApp() {
-        driver.get(TestConfig.getProperty("ViteAppURL"));
+        driver.get(TestConfig.getProperty("HosteworldURL"));
     }
 
     @BeforeMethod
@@ -107,6 +115,22 @@ public class TestBase {
         }else if(ITestResult.SKIP == result.getStatus()){
             reporter().report(LogStatus.SKIP,"Test skipped: "+result.getName());
         }
+    }
+
+    public ResponseBody getFactorial() throws Exception {
+        session = new RestSession();
+        Response resp = session.sendRequest(APIMethods.GET_API);
+        Assert.assertEquals(resp.getStatusCode(),200);
+        System.out.println();
+        System.out.println("######################");
+        System.out.println("API ANSWERED WITH 200 OK CODE");
+        System.out.println("######################");
+        return resp.getBody();
+    }
+
+    @BeforeTest
+    public void initTest() throws Exception {
+        Environments.load();
     }
 
 }

@@ -1,4 +1,5 @@
 .idea
 ScreenShots
 target
-tset.iml
+node_modules
+TestReport.html

@@ -3,7 +3,6 @@ package core;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,12 +13,12 @@ import java.util.TreeMap;
 
 public class ExcelDataProvider {
 
-    public static List<Map<String, String>> getTestDataFromSignUpFile(String site) throws IOException {
+    public static List<Map<String, String>> getTestData() throws IOException {
         List<Map<String,String>> testDataAllRows=null;
         Map<String,String> testData=null;
-        FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/....p_File.xlsx");
+        FileInputStream fileInputStream=new FileInputStream("./src/main/resources/testdata/FactorialSheet.xlsx");
         Workbook workbook=new XSSFWorkbook(fileInputStream);
-        Sheet sheet=workbook.getSheet(site);
+        Sheet sheet=workbook.getSheetAt(0);
         int lastRowNumber=sheet.getLastRowNum();
         int lastColNumber=sheet.getRow(0).getLastCellNum();
         List list=new ArrayList();
@@ -30,7 +29,6 @@ public class ExcelDataProvider {
             String rowHeader = cell.getStringCellValue().trim();
             list.add(rowHeader); //Headers stored in the List
         }
-
         testDataAllRows=new ArrayList<Map<String,String>>();
         //STARTING ALL ROWS FROM #1 to end. ROW #0 is header
         for (int j=1;j<=lastRowNumber;j++){
@@ -40,7 +38,7 @@ public class ExcelDataProvider {
             for(int k=0;k<lastColNumber;k++){
                 Cell cell=row.getCell(k);
                 String colValue = getCellDataAsString((XSSFCell) cell.getRow().getCell(k));
-                //String colValue=cell.toString().trim();   //.getStringCellValue().trim();
+                if(colValue.contains(".0")){colValue = colValue.replace(".0","");}
                 //KEY           //VALUE
                 testData.put((String) list.get(k),colValue);
             }
