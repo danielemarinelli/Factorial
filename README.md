@@ -12,7 +12,7 @@ It can be run in the following environments: DEV INT PREPROP PROD
 
 The test can be triggered with the following command:
 
-mvn clean test -Denv=[ENVIRONMENT] -Dbrowser[BROWSER NAME]
+mvn clean test -Denv=[ENVIRONMENT] -Dbrowser=[BROWSER NAME]
 
 For this test the allowed browsers are: chrome, firefox, edge and IE
 
